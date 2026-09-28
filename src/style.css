@@ -1,8 +1,16 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
 @import "tailwindcss";
 @import "tw-animate-css";
+
+body {
+  font-family: "Lexend"
+}
+ @font-face {
+  font-family: batman;
+  src: url("../fonts/batmfo__.ttf");
+
+ }
 
 @custom-variant dark (&:is(.dark *));
 
