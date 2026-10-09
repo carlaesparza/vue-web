@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { House, Section } from '@lucide/vue';
+import { House, Section, Menu } from '@lucide/vue';
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -9,117 +9,126 @@ import {
 } from '@/components/ui/navigation-menu'
 import CarrusImaginum from '@/components/CarrusImaginum.vue';
 import { scrollToSection } from '@/utils/scrollToSection';
+import { onMounted, ref } from 'vue';
+import { Toggle } from '@/components/ui/toggle'
 
 
 const photos = ["justice", "arkham", "superman", "varios", "villana", "villano", "grupo", "robin", "anne", "joker", "resplandor", "cat", "gafas", "league", "fondoVerde"]; 
 
+const videreMenu = ref<boolean>(true)
 
+const handleResize = () => {
+  if (window.innerWidth <= 600) {
+    videreMenu.value = false
+  } else {
+    videreMenu.value = true
+  }
+}
+onMounted(() => {
+  handleResize()
+  window.addEventListener('resize', handleResize)
+})
 
 </script>
 
-
-
 <template>
-    <div class="batman">
-        <div class="extra-nav flex flex-col sm:flex-row justify-between px-3">
-            <RouterLink to="/">
-            <House class="icon-home" />
-            </RouterLink>
+  <div class="batman">
 
-            <NavigationMenu>
-              <NavigationMenuList class="flex flex-col sm:flex-row ">
-                <NavigationMenuItem>
-                  <a href="#" @click.prevent="scrollToSection('#')">
-                    <NavigationMenuLink :class="[navigationMenuTriggerStyle(), 'text-md hover:bg-brand-purple hover:text-white transition-colors']">
-                      Portada
-                    </NavigationMenuLink>
-                  </a>
-                </NavigationMenuItem>
+    <Toggle 
+      class="fixed top-2 right-4 z-50 bg-slate-500 sm:hidden"
+      @click="videreMenu = !videreMenu"
+    >
+      <Menu />
+    </Toggle>
 
-                <NavigationMenuItem>
-                  <a href="#vehiculis" @click.prevent="scrollToSection('#vehiculis')">
-                    <NavigationMenuLink :class="[navigationMenuTriggerStyle(), 'text-md hover:bg-brand-purple hover:text-white transition-colors']">
-                      Vehículos
-                    </NavigationMenuLink>
-                  </a>
-                </NavigationMenuItem>
+    <nav v-if="videreMenu" class="extra-nav flex flex-col sm:flex-row justify-between px-3">
+      <RouterLink to="/">
+        <House class="icon-home" />
+      </RouterLink>
 
-                 <NavigationMenuItem>
-                  <a href="#videre" @click.prevent="scrollToSection('#videre') ">
-                    <NavigationMenuLink :class="[navigationMenuTriggerStyle(), 'text-md hover:bg-brand-purple hover:text-white transition-colors']">
-                      Imágenes
-                    </NavigationMenuLink>
-                  </a>
-                </NavigationMenuItem>
+      <NavigationMenu>
+        <NavigationMenuList class="flex flex-col sm:flex-row ">
+          <NavigationMenuItem>
+            <a href="#" @click.prevent="scrollToSection('#')">
+              <NavigationMenuLink :class="[navigationMenuTriggerStyle(), 'text-md hover:bg-brand-purple hover:text-white transition-colors']">
+                Portada
+              </NavigationMenuLink>
+            </a>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <a href="#vehiculis" @click.prevent="scrollToSection('#vehiculis')">
+              <NavigationMenuLink :class="[navigationMenuTriggerStyle(), 'text-md hover:bg-brand-purple hover:text-white transition-colors']">
+                Vehículos
+              </NavigationMenuLink>
+            </a>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <a href="#videre" @click.prevent="scrollToSection('#videre') ">
+              <NavigationMenuLink :class="[navigationMenuTriggerStyle(), 'text-md hover:bg-brand-purple hover:text-white transition-colors']">
+                Imágenes
+              </NavigationMenuLink>
+            </a>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <a href="#contactus" @click.prevent="scrollToSection('#contactus')">
+              <NavigationMenuLink :class="[navigationMenuTriggerStyle(), 'text-md hover:bg-brand-purple hover:text-white transition-colors']">
+                Contacto
+              </NavigationMenuLink>
+            </a>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+    </nav>
 
-                <NavigationMenuItem>
-                  <a href="#contactus" @click.prevent="scrollToSection('#contactus')">
-                    <NavigationMenuLink :class="[navigationMenuTriggerStyle(), 'text-md hover:bg-brand-purple hover:text-white transition-colors']">
-                      Contacto
-                    </NavigationMenuLink>
-                  </a>
-                </NavigationMenuItem>
+    <header class="titulus">
+      <h1>Batman</h1>
+      <div id="titulus-batman" class="titulus-img"></div>
+      <p>Él puede tomar la decisión que nadie más puede, la decisión correcta</p>
+    </header>
 
-              </NavigationMenuList>
-            </NavigationMenu>
-
+    <section id="vehiculis">
+      <div class="vehiculis-arca">
+        <div class="item unus">
+          <div class="notitia">
+            <h2>Avión</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula vulputate elit eget fermentum. Ut laoreet ante lacus. Quisque ut tincidunt metus. Curabitur congue, arcu nec tempus sodales, neque sem ultrices mauris, eu tincidunt nibh nibh eu massa. Aenean rhoncus quis nibh ac facilisis.</p>
+            <small>Fabricado en 2005</small>
+          </div>
+          <img src="/imagines/batman/avion.jpg"/>
         </div>
 
-        <header class="titulus">
-            <h1>Batman</h1>
-            <div id="titulus-batman" class="titulus-img"></div>
-            <p>Él puede tomar la decisión que nadie más puede, la decisión correcta</p>
-        </header>
-
-        <section id="vehiculis">
-          <div class="vehiculis-arca">
-
-            <div class="item unus">
-              <div class="notitia">
-                <h2>Avión</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula vulputate elit eget fermentum. Ut laoreet ante lacus. Quisque ut tincidunt metus. Curabitur congue, arcu nec tempus sodales, neque sem ultrices mauris, eu tincidunt nibh nibh eu massa. Aenean rhoncus quis nibh ac facilisis.</p>
-                <small>Fabricado en 2005</small>
-              </div>
-              <img src="/imagines/batman/avion.jpg"/>
-            </div>
-
-            <div class="item duo">
-              <div class="notitia">
-                <h2>Moto</h2>
-                <p>Nulla aliquip cupidatat voluptate veniam nostrud aliquip sit enim officia. Sit eu pariatur officia qui dolor adipisicing cupidatat. Sit consectetur et eu ut esse laboris nulla.</p>
-                <small>Fabricado en 2006</small>
-              </div>
-              <img src="/imagines/batman/moto.jpg"/>
-            </div>
+        <div class="item duo">
+          <div class="notitia">
+            <h2>Moto</h2>
+            <p>Nulla aliquip cupidatat voluptate veniam nostrud aliquip sit enim officia. Sit eu pariatur officia qui dolor adipisicing cupidatat. Sit consectetur et eu ut esse laboris nulla.</p>
+            <small>Fabricado en 2006</small>
+          </div>
+          <img src="/imagines/batman/moto.jpg"/>
+        </div>
               
-            <div class="item tribus">
-              <div class="notitia">
-                <h2>Coche</h2>
-                <p>Irure adipisicing est minim eu ad dolor. Eu ea commodo pariatur ut occaecat in cupidatat reprehenderit ut laborum duis. Sunt minim ex fugiat reprehenderit. Lorem consectetur reprehenderit commodo non</p>
-                <small>Fabricado en 2007</small>
-              </div>
-              <img src="/imagines/batman/car.jpg"/>
-            </div>
+        <div class="item tribus">
+          <div class="notitia">
+            <h2>Coche</h2>
+            <p>Irure adipisicing est minim eu ad dolor. Eu ea commodo pariatur ut occaecat in cupidatat reprehenderit ut laborum duis. Sunt minim ex fugiat reprehenderit. Lorem consectetur reprehenderit commodo non</p>
+            <small>Fabricado en 2007</small>
           </div>
+          <img src="/imagines/batman/car.jpg"/>
+        </div>
+      </div>
 
-          <div class="vehiculis-titulus">
-            <h1>Vehículos de Batman</h1>
-          </div>
-        </section>
+      <div class="vehiculis-titulus">
+        <h1>Vehículos de Batman</h1>
+      </div>
+    </section>
 
-        <section id="videre" class="flex wfull justify-center min-h-[60vh] lg:min-h-[95vh] items-center bg-gray-900">
-          
-          <CarrusImaginum 
-            :photos="photos"
-            basePath="/imagines/batman"
-            :autoplayDelay="1500"
-          />
-
-        </section>
-    
-    </div>
-    
-    
+    <section id="videre" class="flex wfull justify-center min-h-[60vh] lg:min-h-[95vh] items-center bg-gray-900"> 
+      <CarrusImaginum 
+        :photos="photos"
+        basePath="/imagines/batman"
+        :autoplayDelay="1500"
+      />
+    </section>
+  </div>
 </template>
 
 <style scoped>
